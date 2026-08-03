@@ -69,7 +69,11 @@ def main():
     with open("data/skills.json") as f:
         skills_data = json.load(f)
 
-    jobs = fetch_jobs(app_id, app_key)
+    search_terms = ["engineer", "technical consultant", "senior technical consultant"]
+    jobs = []
+    for term in search_terms:
+        jobs.extend(fetch_jobs(app_id, app_key, what=term))
+
     filename = build_spreadsheet(jobs, skills_data)
     print(f"Saved {len(jobs)} jobs checked, results in {filename}")
 
