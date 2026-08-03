@@ -1,0 +1,52 @@
+{
+  "core_skills": [
+    "REST API",
+    "API integration",
+    "SQL",
+    "SQLite",
+    "SSIS",
+    "data pipeline",
+    "data validation",
+    "client escalation",
+    "technical support",
+    "technical consulting",
+    "client relationship management",
+    "onboarding",
+    "training",
+    "documentation",
+    "process improvement",
+    "workflow optimization",
+    "SCRUM",
+    "Agile"
+  ],
+  "tools": [
+    "Postman",
+    "Zendesk",
+    "Jira",
+    "Salesforce",
+    "FileZilla",
+    "Notepad++",
+    "Microsoft Office",
+    "GitHub Copilot"
+  ],
+  "domains": [
+    "EHS",
+    "compliance software",
+    "SaaS",
+    "enterprise software",
+    "OSHA",
+    "biomedical engineering",
+    "manufacturing safety"
+  ],
+  "weight_overrides": {
+    "REST API": 3,
+    "API integration": 3,
+    "SQL": 2,
+    "SSIS": 2,
+    "client escalation": 2,
+    "technical consulting": 2,
+    "SaaS": 2,
+    "EHS": 1,
+    "compliance software": 1
+  }
+}

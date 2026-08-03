@@ -1,0 +1,34 @@
+name: Daily Job Match
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch: #adds a manual "Run workflow" button in the GitHub UI, so you can trigger it on demand while testing instead of waiting for the schedule.
+
+jobs:
+  run-matcher:
+    runs-on: ubuntu-latest #GitHub spins up a fresh temporary Linux machine to run each job.
+    steps:
+      - uses: actions/checkout@v4 #a pre-built action that clones your repo onto that temporary machine (otherwise it'd have no access to your code).
+
+      - name: Set up Python
+        uses: actions/setup-python@v5 #another pre-built action that installs the Python version you specify.
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run matcher
+        env: #under "Run matcher" injects your GitHub Secrets as environment variables only for that step — this is what os.environ["ADZUNA_APP_ID"] reads inside the script.
+          ADZUNA_APP_ID: ${{ secrets.ADZUNA_APP_ID }}
+          ADZUNA_APP_KEY: ${{ secrets.ADZUNA_APP_KEY }}
+        run: python job_matcher.py
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add output/*.xlsx
+          git commit -m "Daily job match $(date +%F)" || echo "No changes"
+          git push
